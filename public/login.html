@@ -70,6 +70,11 @@
             window.netlifyIdentity.on('signup', () => {
                 window.location.href = 'user-profile.html';
             });
+
+            // Close the Netlify Identity widget overlay after successful login
+            window.netlifyIdentity.on('login', () => {
+                netlifyIdentity.close();
+            });
         }
     </script>
 </body>
