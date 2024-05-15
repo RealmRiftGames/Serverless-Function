@@ -65,6 +65,11 @@
         // Initialize Netlify Identity
         if (window.netlifyIdentity) {
             window.netlifyIdentity.init();
+            
+            // Redirect user to user profile page after signup
+            window.netlifyIdentity.on('signup', () => {
+                window.location.href = 'user-profile.html';
+            });
         }
     </script>
 </body>
