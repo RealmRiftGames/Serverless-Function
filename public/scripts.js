@@ -219,8 +219,4 @@ function uploadImage() {
     portraitImage.style.maxHeight = "100px"; // Adjust as needed
     portraitImage.style.borderRadius = "50%"; // Set the border radius to 50% to maintain circular shape
     
-    // Hide the upload instruction
-    var uploadInstruction = document.getElementById("upload-instruction");
-    uploadInstruction.style.display = "none";
-}
-        
+     
