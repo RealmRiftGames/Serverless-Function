@@ -105,6 +105,17 @@ function finalizeCharacter() {
             // Replace the input element with the text element
             inputElement.parentNode.replaceChild(textElement, inputElement);
         }
+
+        function finalizeCharacter() {
+            // Hide the input element (which contains the filename) and show the image
+            document.getElementById("file-input").style.display = "none";
+            document.getElementById("portrait-image").style.display = "block";
+        
+            // Call the function to save the character or perform any other finalization steps
+            saveCharacter();
+        }
+        
+
     });
 
     // Hide the "Finalize" button
@@ -175,36 +186,6 @@ function finalizeCharacter() {
             var descriptionDiv = selectElement.parentElement.querySelector(".description");
             // Set the description text based on the selected option
             descriptionDiv.textContent = descriptions[selectedOption];
-        }
-
-        // Function to generate character
-        function generateCharacter() {
-            // Your generate character logic goes here
-            alert("Character generated!");
-        }
-
-        // Function to reset form
-        function resetForm() {
-            // Reset all input fields
-            document.getElementById("name").value = "";
-            document.getElementById("level").value = "1";
-            document.getElementById("background").selectedIndex = 0;
-            document.getElementById("lineage").selectedIndex = 0;
-            document.getElementById("clan").selectedIndex = 0;
-            document.getElementById("birth-sign").selectedIndex = 0;
-            document.getElementById("ambition").value = "";
-            document.getElementById("skill").value = "0";
-            document.getElementById("courage").value = "0";
-            document.getElementById("focus").value = "0";
-            document.getElementById("vigilance").value = "0";
-
-            // Reset description divs
-            var descriptionDivs = document.querySelectorAll(".description");
-            descriptionDivs.forEach(function(div) {
-                div.textContent = "";
-            });
-
-            alert("Form reset!");
         }
 
 
