@@ -1,0 +1,32 @@
+nav {
+    background-color: #333; /* Dark gray background color */
+    color: #fff; /* White text color */
+    text-align: center; /* Center-align the menu items */
+    padding: 20px 0; /* Add padding to the top and bottom */
+    font-family: "Segoe UI", sans-serif; /* Sans-serif font */
+    display: flex; /* Use flexbox for centering */
+    justify-content: center; /* Center the menu horizontally */
+}
+
+nav ul {
+    list-style-type: none; /* Remove default bullet points */
+    padding: 0;
+}
+
+nav ul li {
+    display: inline; /* Display menu items inline */
+    margin: 0 20px; /* Add margin between menu items */
+}
+
+nav ul li a {
+    text-decoration: none; /* Remove underline from links */
+    color: #fff; /* White text color */
+    font-weight: bold; /* Make text bold */
+    padding: 10px 20px; /* Add padding to each link */
+    border-radius: 5px; /* Add rounded corners to links */
+    transition: background-color 0.3s ease; /* Add transition effect */
+}
+
+nav ul li a:hover {
+    background-color: #555; /* Darken background color on hover */
+}

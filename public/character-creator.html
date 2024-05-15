@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script type="text/javascript" src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sensoji Character Creator</title>
+    <link rel="stylesheet" href="styles.css">
+
+    
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="character-creator.html">Character Creator</a></li>
+                <li><a href="user-profile.html">User Profile</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <style>
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+.input-group label {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.number-input input[type="number"] {
+    width: 50px;
+}
+
+.description {
+    font-style: italic;
+    margin-top: 5px;
+}
+
+.buttons button {
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+.buttons button:hover {
+    background-color: #45a049;
+}
+
+/* CSS for making "Attributes" and "Talents" sections next to each other */
+.attributes .input-group,
+.talents .input-group {
+    display: flex;
+    justify-content: space-between;
+}
+/* Existing CSS rules */
+
+/* New CSS rules for Bushido Styles and Techniques */
+.bushido-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* CSS for Bushido Techniques descriptions */
+.bushido-techniques .input-group textarea {
+    width: 100%; /* Make the textarea fill its parent's width */
+    max-width: 100%; /* Ensure it doesn't exceed its parent's width */
+    box-sizing: border-box; /* Include padding and border in the width */
+}
+
+/* CSS for Bushido Styles */
+.bushido-styles .input-group {
+    width: 100%; /* Ensure each input group fills the available width */
+    box-sizing: border-box; /* Include padding and border in the width */
+    margin-bottom: 10px; /* Add some space between each style */
+}
+
+
+/* CSS for making "Attributes" and "Talents" sections next to each other */
+.attributes .input-group,
+.talents .input-group {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px; /* Adjust the gap as needed */
+}
+
+/* New CSS rules for organizing talents */
+.talents .input-group .number-input {
+    grid-column: span 1; /* Each talent takes one column */
+}
+
+.talents .input-group h2 {
+    grid-column: span 2; /* The heading spans both columns */
+}
+
+/* CSS for character portrait */
+#character-portrait {
+    width: 100px; /* Adjust size as needed */
+    height: 100px; /* Adjust size as needed */
+    border-radius: 50%; /* Make it a circle */
+    background-color: gray; /* Initial background color */
+    margin-right: 20px; /* Add some space between portrait and name */
+    cursor: pointer;
+    display: inline-block; /* Display inline */
+    vertical-align: middle; /* Align vertically with the text */
+    position: relative; /* Position relative for absolute positioning of text */
+}
+
+#portrait-image {
+    width: 100%; /* Adjust as needed */
+    height: 100%; /* Adjust as needed */
+    object-fit: cover; /* Ensure the image covers the entire container */
+    border-radius: 50%; /* Set the border radius to 50% to maintain circular shape */
+    display: block; /* Ensure the image is displayed as a block element */
+    position: relative; /* Position relative for absolute positioning */
+    top: 50%; /* Move the image down by half of its height */
+    left: 50%; /* Move the image right by half of its width */
+    transform: translate(-50%, -50%); /* Center the image using translate */
+}
+    </style>
+
+</head>
+<body>
+
+    
+    <div class="container">
+        <h1 style="text-align: center;">Sensoji Character Creator</h1>
+        <div class="input-group" style="text-align: center;">
+
+            <div class="container">
+                <!-- Character Portrait -->
+                <label id="character-portrait" for="file-input">
+                    <span id="upload-instruction"></span>
+                    <img id="portrait-image" src="" alt="Portrait Image">
+                </label>
+                <input type="file" id="file-input" accept="image/*" style="display: none;">
+        
+            <h2 for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+        <div class="input-group" style="text-align: center;">
+            <div class="number-input">
+                <label for="level">Level:</label>
+                <input type="number" id="level" name="level" min="1" max="20" value="1">
+            </div>
+        </div>
+        <!-- Background Dropdown -->
+        <div class="input-group" style="text-align: center;">
+            <label for="background">Background:</label>
+            <select id="background" name="background" onchange="showDescription(this)">
+                <option value="select">-select your background-</option>
+                <option value="cartographer">Cartographer</option>
+                <option value="blacksmith">Blacksmith</option>
+                <option value="exile">Exile</option>
+                <option value="foreigner">Foreigner</option>
+                <option value="geisha">Geisha</option>
+                <option value="healer">Healer</option>
+                <option value="knight">Knight</option>
+                <option value="komuso-monk">Komuso Monk</option>
+                <option value="merchant">Merchant</option>
+                <option value="monk">Monk</option>
+                <option value="oniwaban">Oniwaban</option>
+                <option value="peasant">Peasant</option>
+                <option value="pirate">Pirate</option>
+                <option value="ronin">Ronin</option>
+                <option value="sailor">Sailor</option>
+                <option value="samurai">Samurai</option>
+                <option value="shinobi">Shinobi</option>
+                <option value="soldier">Soldier</option>
+                <option value="sumo-wrestler">Sumo Wrestler</option>
+                <option value="tea-ceremony-master">Tea Ceremony Master</option>
+                <option value="thief">Thief</option>
+                <option value="vassal">Vassal</option>
+            </select>
+            <div id="background-description" class="description"></div>
+        </div>
+        <!-- Lineage Dropdown -->
+        <div class="input-group" style="text-align: center;">
+            <label for="lineage">Lineage:</label>
+            <select id="lineage" name="lineage" onchange="showDescription(this)">
+                <option value="select">-select your lineage-</option>
+                <option value="aedoha">Aedoha</option>
+                <option value="frotheim">Frotheim</option>
+                <option value="sensoji">Sensōji </option>
+                <option value="shenmi-isles">Shénmì Isles</option>
+                <option value="suryadesh">Suryadesh</option>
+                <option value="valoria">Valoria</option>
+                <option value="zamundara">Zamundara</option>
+            </select>
+            <div id="lineage-description" class="description"></div>
+        </div>
+        <!-- Clan Dropdown -->
+        <div class="input-group" style="text-align: center;">
+            <label for="clan">Clan:</label>
+            <select id="clan" name="clan" onchange="showDescription(this)">
+                <option value="select">-select your clan-</option>
+                <option value="muji">Muji</option>
+                <option value="nami">Nami</option>
+                <option value="shinta">Shinta</option>
+                <option value="susu">Susu</option>
+                <option value="tani">Tani</option>
+                <option value="tetsu">Tetsu</option>
+                <option value="yama">Yama</option>
+            </select>
+            <div id="clan-description" class="description"></div>
+        </div>
+        <!-- Birth Sign Dropdown -->
+        <div class="input-group" style="text-align: center;">
+            <label for="birth-sign">Birth Sign:</label>
+            <select id="birth-sign" name="birth-sign" onchange="showDescription(this)">
+                <option value="select">-select your sign-</option>
+                <option value="foxsquirrel">Foxsquirrel Mutsuki</option>
+                <option value="hawk">Hawk Kisaragi</option>
+                <option value="moth">Moth Yayoi</option>
+                <option value="snake">Snake Uzuki</option>
+                <option value="spider">Spider Satsuki</option>
+                <option value="boar">Boar Minazuki</option>
+                <option value="crane">Crane Fumizuki</option>
+                <option value="turtle">Turtle Hazuki</option>
+                <option value="twin-owls">Twin Owls Nagatsuki</option>
+                <option value="koi-fish">Koi Fish Kannazuki</option>
+                <option value="tanuki">Tanuki Shimotsuki</option>
+                <option value="monkey">Monkey Shiwasu</option>
+            </select>
+            <div id="birth-sign-description" class="description"></div>
+        </div>
+        <!-- Ambition Input -->
+        <div class="input-group" style="text-align: center;">
+            <label for="ambition">Ambition:</label>
+            <input type="text" id="ambition" name="ambition" style="width: 300px;">
+        </div>
+        <!-- Attributes, Talents, and Combat Stats -->
+        <div class="attributes" style="text-align: center;">
+            <h2 style="margin: 0;">Attributes</h2>
+            <p style="margin: 0;">3 points +1 for every level past 1.</p>
+            <p style="margin: 0;">Example: 1 point in SKL grants 2 points to spend on SPD/NMB</p>
+
+            <br>        
+            <!-- Attribute Inputs -->
+            <div class="input-group">
+                <!-- Skill -->
+                <div class="number-input">
+                    <label for="skill">Skill:</label>
+                    <input type="number" id="skill" name="skill" min="0" max="20" value="0">
+                </div>
+                <!-- Courage -->
+                <div class="number-input">
+                    <label for="courage">Courage:</label>
+                    <input type="number" id="courage" name="courage" min="0" max="20" value="0">
+                </div>
+                <!-- Focus -->
+                <div class="number-input">
+                    <label for="focus">Focus:</label>
+                    <input type="number" id="focus" name="focus" min="0" max="20" value="0">
+                </div>
+            </div>
+            <h2 style="margin: 0;">Talents</h2>
+            <p style="margin: 0;">2 points for every associate ATR point spent.</p>
+            <br>
+
+            <!-- Talent Inputs -->
+            <div class="input-group">
+                <!-- Speed -->
+                <div class="number-input">
+                    <label for="speed">(SKL) Speed:</label>
+                    <input type="number" id="speed" name="speed" min="0" max="40" value="0">
+                </div>
+                <!-- Nimbleness -->
+                <div class="number-input">
+                    <label for="nimbleness">(SKL) Nimbleness:</label>
+                    <input type="number" id="nimbleness" name="nimbleness" min="0" max="40" value="0">
+                </div>
+                <!-- Fortitude -->
+                <div class="number-input">
+                    <label for="fortitude">(CRG) Fortitude:</label>
+                    <input type="number" id="fortitude" name="fortitude" min="0" max="40" value="0">
+                </div>
+                <!-- Backbone -->
+                <div class="number-input">
+                    <label for="backbone">(CRG) Backbone:</label>
+                    <input type="number" id="backbone" name="backbone" min="0" max="40" value="0">
+                </div>
+                <!-- Intuition -->
+                <div class="number-input">
+                    <label for="intuition">(FOC) Intuition:</label>
+                    <input type="number" id="intuition" name="intuition" min="0" max="40" value="0">
+                </div>
+                <!-- Wits -->
+                <div class="number-input">
+                    <label for="wits">(FOC) Wits:</label>
+                    <input type="number" id="wits" name="wits" min="0" max="40" value="0">
+                </div>
+            </div>
+            <h2 style="margin: 0;">Combat Stats</h2>
+            <p style="margin: 0;">Add armor if equiped and - score from Spd</p>
+            <br>
+
+            <!-- Combat Stat Inputs -->
+            <div class="input-group">
+                <!-- Senko -->
+                <div class="number-input">
+                    <label for="senko">Senko:</label>
+                    <input type="number" id="senko" name="senko" readonly style="width: 50px;">
+                </div>
+                <!-- Vitality -->
+                <div class="number-input">
+                    <label for="vitality">Vitality:</label>
+                    <input type="number" id="vitality" name="vitality" readonly style="width: 50px;">
+                </div>
+                <!-- Spirit -->
+                <div class="number-input">
+                    <label for="spirit">Spirit:</label>
+                    <input type="number" id="spirit" name="spirit" readonly style="width: 50px;">
+                </div>
+                <!-- Armor -->
+                <div class="number-input">
+                    <label for="armor">Armor:</label>
+                    <input type="number" id="armor" name="armor" min="0" max="100">
+                </div>
+                <!-- Defense -->
+                <div class="number-input">
+                    <label for="defense">Defense:</label>
+                    <input type="number" id="defense" name="defense" min="0" max="100" readonly>
+                </div>
+            </div>
+                </div>
+            </div>
+            <button style="display: block; margin: 10px auto;" onclick="calculateStats()">Calculate Combat Stats</button>
+        </div>
+    </div>
+
+    <script>
+        function changeLevel(value) {
+            var levelInput = document.getElementById("level");
+            var currentLevel = parseInt(levelInput.value);
+            var newLevel = currentLevel + value;
+            if (newLevel >= parseInt(levelInput.min) && newLevel <= parseInt(levelInput.max)) {
+                levelInput.value = newLevel;
+            }
+        }
+
+        function calculateStats() {
+            var skill = parseInt(document.getElementById("skill").value);
+            var courage = parseInt(document.getElementById("courage").value);
+            var focus = parseInt(document.getElementById("focus").value);
+            var level = parseInt(document.getElementById("level").value);
+            var senko = 3 * skill + 2 * courage + focus;
+            var vitality = 13 + 2 * courage + 4 * (level - 1);
+            var spirit = 3 + focus + (level - 1);
+            var armor = parseInt(document.getElementById("armor").value);
+            var defense = 3 * armor;
+            document.getElementById("senko").value = senko;
+            document.getElementById("vitality").value = vitality;
+            document.getElementById("spirit").value = spirit;
+            document.getElementById("defense").value = defense;
+        }
+
+        function saveCharacter() {
+            // Implement saving functionality here
+            alert("Character saved!"); // Placeholder for demonstration
+        }
+    </script>
+
+
+<div class="container">
+    <!-- Your other content here -->
+    
+    <!-- New section for Bushido Styles and Techniques -->
+    <div class="bushido-container">
+        <div class="bushido-styles">
+            <!-- Content for Bushido Styles -->
+            <div class="bushido-styles" style="text-align: center;">
+                <br>
+                <h2 style="margin: 0;text-align: center;">Bushido Styles</h2>
+                <p style="margin: 0;">1+1 per FOC</p>
+                <p style="margin: 0;">+1 to score for "Versatile"</p>
+                <br>
+                <div class="input-group" style="text-align: center;">
+                    <input type="checkbox" id="wandering-whirlwind" name="bushido-style" onchange="updateCheckboxLimit()">
+                    <label for="wandering-whirlwind">Whirlwind:</label>
+                    <div class="number-input" style="display: inline-block;">
+                        <input type="number" id="wandering-whirlwind-amount" name="wandering-whirlwind-amount" min="0" max="10" value="0">
+                    </div>
+                </div>
+                <div class="input-group" style="text-align: center;">
+                    <input type="checkbox" id="dance-of-mist" name="bushido-style" onchange="updateCheckboxLimit()">
+                    <label for="dance-of-mist">Mist:</label>
+                    <div class="number-input" style="display: inline-block;">
+                        <input type="number" id="dance-of-mist-amount" name="dance-of-mist-amount" min="0" max="10" value="0">
+                    </div>
+                </div>
+                <div class="input-group" style="text-align: center;">
+                    <input type="checkbox" id="demon-style" name="bushido-style" onchange="updateCheckboxLimit()">
+                    <label for="demon-style">Demon:</label>
+                    <div class="number-input" style="display: inline-block;">
+                        <input type="number" id="demon-style-amount" name="demon-style-amount" min="0" max="10" value="0">
+                    </div>
+                </div>
+                <div class="input-group" style="text-align: center;">
+                    <input type="checkbox" id="waterfall-flow" name="bushido-style" onchange="updateCheckboxLimit()">
+                    <label for="waterfall-flow">Waterfall:</label>
+                    <div class="number-input" style="display: inline-block;">
+                        <input type="number" id="waterfall-flow-amount" name="waterfall-flow-amount" min="0" max="10" value="0">
+                    </div>
+                </div>
+                <div class="input-group" style="text-align: center;">
+                    <input type="checkbox" id="harmony-of-blades" name="bushido-style" onchange="updateCheckboxLimit()">
+                    <label for="harmony-of-blades">Harmony:</label>
+                    <div class="number-input" style="display: inline-block;">
+                        <input type="number" id="harmony-of-blades-amount" name="harmony-of-blades-amount" min="0" max="10" value="0">
+                    </div>
+                </div>
+                <div class="input-group" style="text-align: center;">
+                    <input type="checkbox" id="path-of-zen" name="bushido-style" onchange="updateCheckboxLimit()">
+                    <label for="path-of-zen">Zen:</label>
+                    <div class="number-input" style="display: inline-block;">
+                        <input type="number" id="path-of-zen-amount" name="path-of-zen-amount" min="0" max="10" value="0">
+                    </div>
+                </div>
+            </div>
+        
+        </div>
+        <div class="bushido-techniques">
+            <!-- Content for Bushido Techniques -->
+            <div class="input-group" style="text-align: center;">
+                <h2 style="text-align: center;">Bushido Techniques</h2>
+                <div class="input-group">
+                    <label for="technique1">Technique 1:</label>
+                    <input type="text" id="technique1" name="technique1">
+                </div>
+                <div class="input-group">
+                    <label for="description1">Description 1:</label>
+                    <textarea id="description1" name="description1" rows="6" cols="30"></textarea>
+                    <!-- Adjusted rows value to make it taller and cols value to make it less wide -->
+                </div>
+                <div class="input-group">
+                    <label for="technique2">Technique 2:</label>
+                    <input type="text" id="technique2" name="technique2">
+                </div>
+                <div class="input-group">
+                    <label for="description2">Description 2:</label>
+                    <textarea id="description2" name="description2" rows="6" cols="30"></textarea>
+                    <!-- Adjusted rows value to make it taller and cols value to make it less wide -->
+                </div>
+                <div class="input-group">
+                    <label for="technique3">Technique 3:</label>
+                    <input type="text" id="technique3" name="technique3">
+                </div>
+                <div class="input-group">
+                    <label for="description3">Description 3:</label>
+                    <textarea id="description3" name="description3" rows="6" cols="30"></textarea>
+                    <!-- Adjusted rows value to make it taller and cols value to make it less wide -->
+                </div>
+                <div class="input-group">
+                    <label for="technique4">Technique 4:</label>
+                    <input type="text" id="technique4" name="technique4">
+                </div>
+                <div class="input-group">
+                    <label for="description4">Description 4:</label>
+                    <textarea id="description4" name="description4" rows="6" cols="30"></textarea>
+                    <!-- Adjusted rows value to make it taller and cols value to make it less wide -->
+                </div>
+            </div>
+        </div>
+            </div>
+
+
+    <div class="training-section" style="margin: 0;text-align: center;">
+        <h2 style="text-align: center; margin: 0;">Training</h2>
+        <p style="margin: 0;">+4 from BG & Clan.</p>
+        <p style="margin: 0;">+1 for Alliance. +1 per level.</p>
+            
+        <br>
+
+        <div id="training-container">
+            <div class="training-input" style="text-align: center;">
+                <label for="category1">Category:</label>
+                <select id="category1" name="category1" onchange="updateTrainingOptions(this)">
+                    <option value="">-- Select Category --</option>
+                    <option value="social">Social</option>
+                    <option value="combat">Combat</option>
+                    <option value="weapon">Weapon</option>
+                </select>
+                <label for="training1">Training:</label>
+                <select id="training1" name="training1">
+                    <option value="">-- Select Training --</option>
+                </select>
+                <label for="tier1">Tier:</label>
+                <select id="tier1" name="tier1" style="margin-right: 10px;">
+                    <option value="">-- Select Tier --</option>
+                </select>
+            </div>
+        </div>
+        <button style="display: inline-block; margin: 10px auto;" onclick="addTraining()">Add More Training</button>
+        <button style="display: inline-block; margin: 10px auto;" onclick="deleteTraining()">Delete Training</button>
+    </div>
+            </div>
+    </div>
+</div>
+
+
+            <!-- Add "Finalize" button -->
+            <br><br><br>
+            <button style="display: block; margin: 10px auto;" onclick="finalizeCharacter()">Finalize</button>
+        </div>
+        <p style="text-align: center; color: rgb(103, 23, 23); font-size: small;">Warning: "Finalize" will convert all menus to permanent text. Refresh to create a new sheet. </p>
+        <p style="text-align: center; color: rgb(103, 23, 23); font-size: small;">filename for portrait image showing is a known issue. Looking into solutions. </p>
+
+        <br>
+    <script src="scripts.js"></script>
+    
+</body>
+</html>
