@@ -1,0 +1,15 @@
+{
+  "type": "module",
+  "name": "serverless-function",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "node-fetch": "^3.3.2"
+  }
+}
