@@ -243,3 +243,24 @@ function uploadImage() {
     uploadInstruction.style.display = "none";
 }
         
+
+// Open sign-up modal
+document.getElementById('signup').addEventListener('click', function () {
+    netlifyIdentity.open('signup');
+});
+
+// Open login modal
+document.getElementById('login').addEventListener('click', function () {
+    netlifyIdentity.open('login');
+});
+
+
+netlifyIdentity.on('login', function () {
+    // User logged in
+    console.log('User logged in');
+});
+
+netlifyIdentity.on('logout', function () {
+    // User logged out
+    console.log('User logged out');
+});
