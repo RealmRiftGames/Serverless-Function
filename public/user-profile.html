@@ -21,7 +21,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 60vh;
+            height: 70vh;
             background-color: #f2f2f2; /* Background color for the entire page */
         }
 
@@ -116,7 +116,29 @@
     </div>
 
     <script>
-        // Function to update avatar and username (remain unchanged)
+        // Function to update avatar
+        function updateAvatar(event) {
+            var reader = new FileReader();
+            reader.onload = function () {
+                var output = document.getElementById('avatar-image');
+                output.src = reader.result;
+
+                // Save the updated avatar to localStorage or backend
+                // Example: localStorage.setItem('avatar', reader.result);
+            }
+            reader.readAsDataURL(event.target.files[0]);
+        }
+
+        // Function to update username
+        function updateUsername() {
+            var username = document.getElementById('username').value;
+            
+            // Save the updated username to localStorage or backend
+            // Example: localStorage.setItem('username', username);
+
+            // You can implement logic here to save the username
+            alert('Username updated to: ' + username);
+        }
     </script>
 </body>
 </html>
